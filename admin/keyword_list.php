@@ -1,0 +1,241 @@
+<?php
+session_start();
+
+if ($_SESSION['admin_id']==null)
+{
+    header('Location:admin/index.php');
+}
+
+
+if (isset($_GET['logout']))
+{
+    require_once '../class/login.php';
+    $logout = new login();
+    $logout->admin_logout();
+
+}
+
+require_once '../class/admin.php';
+$keyword_list=new admin();
+$query_result = $keyword_list->KeywordList();
+
+if (isset($_GET['delete'])){
+    require_once '../class/admin.php';
+    $delete_keyword=new admin();
+    $delete=$_GET['delete'];
+    $delete_keyword->DeleteKeyword($delete);
+
+}
+
+
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Outcome Based Question Generator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../asset/css/bootstrap.min.css">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../asset/css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="admin_dashboard.php">Outcome</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="exam_list.php">Exam List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="keyword_list.php">Keyword List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="book_list.php">Book List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="course_list.php">Course List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="program_list.php">Program List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="semester_list.php">Semester List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="book_chapter_list.php">Chapter List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="question_list.php">Question List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="course_offer_list.php">Course Offer List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="teacher_short_name.php">User List</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <!--<a class="nav-link" ><?php /*echo $_SESSION['admin_name'];*/?></a>-->
+            <a class="nav-link" href="?logout=logout">Logout</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-info sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin_dashboard.php">
+                            <span data-feather="home"></span>
+                            Admin <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_semester.php">
+                            <span data-feather="file-text"></span>
+                            Add semester
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_course.php">
+                            <span data-feather="file-text"></span>
+                            Add Course
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_program.php">
+                            <span data-feather="file-text"></span>
+                            Add Program
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_book.php">
+                            <span data-feather="file-text"></span>
+                            Add Book
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_chapter.php">
+                            <span data-feather="file-text"></span>
+                            Add Chapter
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_exam.php">
+                            <span data-feather="file-text"></span>
+                            Add Exam
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_course_offer.php">
+                            <span data-feather="file-text"></span>
+                            Add Course Offer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_keyword.php">
+                            <span data-feather="file-text"></span>
+                            Add Keyword
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_teacher.php">
+                            <span data-feather="file-text"></span>
+                            Add Teacher
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-md-4" style="margin-top:100px;">
+            <div class="card card-body bg-dark">
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm table-bordered" style="color: white" >
+                        <thead>
+                        <tr>
+                            <th>Outcome ID</th>
+                            <th>Outcome Name</th>
+                            <th>Action</th
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i=1; foreach ($query_result as $keyword_list) {?>
+                            <tr>
+                                <td><?php echo $keyword_list['outcome_id']?></td>
+                                <td><?php echo $keyword_list['outcome_code'];?></td>
+                                <td>
+                                    <a href="?delete=<?php echo $keyword_list['outcome_id']?>" class="btn btn-danger btn-sm">
+                                        <span><strong>Delete</strong></span>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../asset/js/jquery-3.3.1.slim.min.js"></script>
+<script src="../asset/js/feather.min.js"></script>
+<script src="../asset/js/Chart.min.js"></script>
+<script src="../asset/js/dashboard.js"></script></body>
+</html>
+
